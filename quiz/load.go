@@ -1,7 +1,6 @@
 package quiz
 
 import (
-	//"bufio"
 	"encoding/csv"
 	"io"
 	"log"
@@ -30,7 +29,6 @@ func LoadData() []CountryData {
 	ret := make([]CountryData, 0)
 	// Parse the file
 	r := csv.NewReader(csvfile)
-	//r := csv.NewReader(bufio.NewReader(csvfile))
 
 	// Iterate through the records
 	for {

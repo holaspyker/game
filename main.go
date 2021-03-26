@@ -1,19 +1,27 @@
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+	"log"
+	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/jesmendi/quizCapital/quiz"
 )
 
 var countries = quiz.LoadData()
 
 func main() {
-	rand.Seed(time.Now().Unix())
 
-	questions := quiz.GetQuestions(countries)
-	fmt.Println(questions)
+	handleRequests()
 
+}
+func handleRequests() {
+	// creates a new instance of a mux router
+	myRouter := mux.NewRouter().StrictSlash(true)
+	// replace http.HandleFunc with myRouter.HandleFunc
+	myRouter.HandleFunc("/questions", getQuestions)
+	// finally, instead of passing in nil, we want
+	// to pass in our newly created router as the second
+	// argument
+	log.Fatal(http.ListenAndServe(":8080", myRouter))
 }
