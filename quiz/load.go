@@ -1,4 +1,4 @@
-package loader
+package quiz
 
 import (
 	//"bufio"
@@ -14,11 +14,6 @@ type CountryData struct {
 	Capital   string `json:"capital"`
 }
 
-type QuestionData struct {
-	Country string   `json:"country"`
-	Capital []string `json:"capital"`
-}
-
 type CountryStore interface {
 	LoadData()
 }
@@ -32,7 +27,7 @@ func LoadData() []CountryData {
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
-	ret := make([]CountryData, 0, 0)
+	ret := make([]CountryData, 0)
 	// Parse the file
 	r := csv.NewReader(csvfile)
 	//r := csv.NewReader(bufio.NewReader(csvfile))
@@ -48,22 +43,15 @@ func LoadData() []CountryData {
 			log.Fatal(err)
 		}
 
-		count := CountryData{
+		country := CountryData{
 			CountryID: record[0],
 			Country:   record[1],
 			Capital:   record[2],
 		}
 
-		ret = append(ret, count)
+		ret = append(ret, country)
 	}
 
 	return ret
 
-}
-
-func GetQuestions([]CountryData) []QuestionData {
-
-	ret := make([]QuestionData, 0, 0)
-
-	return ret
 }
