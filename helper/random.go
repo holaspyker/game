@@ -3,10 +3,12 @@ package helper
 import (
 	"fmt"
 	"math/rand"
+	"net/http"
+	"time"
 )
 
 func GetRandomSlice(number int, total int) []int {
-
+	rand.Seed(time.Now().UnixNano())
 	q := rand.Perm((total))
 	q = q[:number]
 	fmt.Println(q)
@@ -28,4 +30,16 @@ func min(a, b int) int {
 		return a
 	}
 	return b
+}
+func SendData(w http.ResponseWriter, b []byte, err error) {
+
+	w.Header().Set("Content-Type", "application/json")
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(`{"error": "error marshalling data"}`))
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write(b)
+
 }

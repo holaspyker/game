@@ -5,6 +5,8 @@ import (
 	"io"
 	"log"
 	"os"
+
+	"github.com/jesmendi/quizCapital/config"
 )
 
 type CountryData struct {
@@ -22,7 +24,8 @@ type Country struct {
 }
 
 func LoadData() []CountryData {
-	csvfile, err := os.Open("file/countries.csv")
+
+	csvfile, err := os.Open(config.Cfg.File)
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}

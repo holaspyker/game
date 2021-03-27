@@ -5,10 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/jesmendi/quizCapital/quiz"
 )
-
-var countries = quiz.LoadData()
 
 func main() {
 
