@@ -11,9 +11,9 @@ import (
 )
 
 type CountryData struct {
-	CountryID string `json:"country_id"`
-	Country   string `json:"country"`
-	Capital   string `json:"capital"`
+	CountryID string
+	Country   string
+	Capital   string
 }
 
 func init() {

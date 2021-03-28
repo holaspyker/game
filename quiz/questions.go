@@ -15,9 +15,9 @@ var Countries []CountryData
 var QuesData []QuestionData
 
 type QuestionData struct {
-	Country string   `json:"country"`
-	Correct string   `json:"correct"`
-	Capital []string `json:"capital"`
+	Country string
+	Correct string
+	Capital []string
 }
 
 // Creating the Questions
