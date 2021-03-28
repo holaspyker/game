@@ -20,21 +20,17 @@ type QuestionData struct {
 	Capital []string `json:"capital"`
 }
 
-func init() {
-
-	Countries = LoadData()
-	GetQuestions(Countries)
-}
-
+// Creating the Questions
+// Create all questions when the game is started
 func GetQuestions(cty []CountryData) {
 
-	random := helper.GetRandomSlice(config.Cfg.NumberAnswer, len(cty))
-	split := helper.ArrayChunk(random, config.Cfg.AnswerPerQuestion)
-
+	clearData()
+	random := helper.GetRandomSlice(config.C.Conf.NumberAnswer, len(cty))
+	split := helper.ArrayChunk(random, config.C.Conf.AnswerPerQuestion)
 	QuesData = make([]QuestionData, 0)
 	for _, seeds := range split {
 		rand.Seed(time.Now().UnixNano())
-		permutations := rand.Perm(config.Cfg.AnswerPerQuestion)
+		permutations := rand.Perm(config.C.Conf.AnswerPerQuestion)
 		var answerCapitals = make([]string, 0)
 
 		for _, p := range permutations {
@@ -51,6 +47,7 @@ func GetQuestions(cty []CountryData) {
 	}
 }
 
+// Send the next question to the player
 func GetNextQuestion(w http.ResponseWriter) {
 	data := QuesData[len(Res)]
 	data.Correct = "xxxx"

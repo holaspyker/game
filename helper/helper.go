@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// get Random slice with the id of the questions(id fron csv file )
 func GetRandomSlice(number int, total int) []int {
 	rand.Seed(time.Now().UnixNano())
 	q := rand.Perm((total))
@@ -16,6 +17,7 @@ func GetRandomSlice(number int, total int) []int {
 
 }
 
+// Split the slice
 func ArrayChunk(arr []int, limit int) [][]int {
 	batchTotal := make([][]int, 0)
 	for i := 0; i < len(arr); i += limit {
@@ -31,8 +33,9 @@ func min(a, b int) int {
 	}
 	return b
 }
-func SendData(w http.ResponseWriter, b []byte, err error) {
 
+// Send Data to  the client side
+func SendData(w http.ResponseWriter, b []byte, err error) {
 	w.Header().Set("Content-Type", "application/json")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

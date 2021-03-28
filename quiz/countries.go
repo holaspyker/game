@@ -2,6 +2,7 @@ package quiz
 
 import (
 	"encoding/csv"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -15,17 +16,15 @@ type CountryData struct {
 	Capital   string `json:"capital"`
 }
 
-type CountryStore interface {
-	LoadData()
+func init() {
+
+	Countries = LoadData()
 }
 
-type Country struct {
-	Store []CountryData `json:"store"`
-}
-
+// Load the data in csv file
 func LoadData() []CountryData {
 
-	csvfile, err := os.Open(config.Cfg.File)
+	csvfile, err := os.Open(config.C.Conf.File)
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
@@ -43,16 +42,15 @@ func LoadData() []CountryData {
 		if err != nil {
 			log.Fatal(err)
 		}
-
 		country := CountryData{
 			CountryID: record[0],
 			Country:   record[1],
 			Capital:   record[2],
 		}
-
 		ret = append(ret, country)
 	}
 
+	fmt.Println("The file is read")
 	return ret
 
 }
